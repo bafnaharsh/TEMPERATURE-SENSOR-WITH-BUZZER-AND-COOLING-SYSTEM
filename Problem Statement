@@ -1,0 +1,21 @@
+Problem Statement
+
+
+The Taliban are sitting on $1 trillion worth of minerals the world desperately needs. The
+desperate Chinese government has locked a deal for lithium reserves in the Ghazni
+province, Afghanistan. The Chinese have sent the necessary equipment but the Talibans are
+unaware of the challenges faced while mining. The temperature conditions inside the mines
+changes from time to time and it is advised for the miners not to stay inside the mines during
+high temperatures.
+
+
+Build a system that has the following functionalities:
+
+1. A temperature indicating unit that indicates three following ranges of temperatures.
+● <=30 degree Celsius
+● >30 & <=40 degree Celsius
+● >40 & <=50 degree Celsius
+
+2. A cooling unit that switches on automatically at a temperature
+3. An alerting unit that alerts the miners once the temperature crosses 50 degree
+Celsius so the miners can come out safely.
