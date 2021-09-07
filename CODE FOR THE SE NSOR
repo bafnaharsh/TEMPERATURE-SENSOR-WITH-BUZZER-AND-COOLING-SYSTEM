@@ -1,0 +1,86 @@
+\* THIS IS THE CODE FOR THE SENSOR WHICH I MADE.
+THE SENSOR SENSES THE TEMPERATURE AND TURN ON THE 3 LEDs ACCORDING TO THE TEMPERATURE.
+AND A BUZZER WHICH START WHEN THE TEMPERATURE IS SO HIGH AND A F COOLING SYSTEM(FAN) WHICH STARTS WHEN THE TEMPERATURE IS MEDIUM AND TRIES TO COOL THE SURROUNDINGS 
+*/
+
+
+
+
+int baselineTemp = 0;
+int celsius = 0;
+int fahrenheit = 0;
+int mot = 9;
+
+void setup()
+{
+  pinMode(A0, INPUT);
+  Serial.begin(9600);
+
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(9, OUTPUT);
+}
+
+void loop()
+{
+  baselineTemp = 40;
+  
+  celsius = map(((analogRead(A0) - 20) * 3.04), 0, 1023, -40, 125);
+  
+   fahrenheit = ((celsius * 9) / 5 + 32);
+  Serial.print(celsius);
+  Serial.print(" C, ");
+  Serial.print(fahrenheit);
+  Serial.println(" F");
+  //TEMPERATURE <= 30 DEGREE CELSIUS
+   if (celsius <= baselineTemp -10) {
+    digitalWrite(2, LOW);
+    digitalWrite(3, LOW);
+    digitalWrite(4, LOW);
+     lmotor();
+     delay(100);
+  }
+  //TEMPERATURE >30 & <=40 degree Celsius
+  if (celsius > baselineTemp - 10 && celsius <= baselineTemp) {
+    digitalWrite(2, HIGH);
+    digitalWrite(3, LOW);
+    digitalWrite(4, LOW);
+     hmotor();
+    delay(100);
+   
+  }
+  //TEMPERATURE >40 & <=50 DEGREE CELSIUS // FAN WILL START FOR COOLLING
+  if (celsius > baselineTemp && celsius <= baselineTemp + 10) {
+    digitalWrite(2, HIGH);
+    digitalWrite(3, HIGH);
+    digitalWrite(4, LOW);
+    hmotor();
+    delay(100);
+   
+  }
+  //TEMPERATURE TILL MAX.//WITH BUZZER START SOUNDS...
+  if (celsius > baselineTemp + 10 && celsius <= baselineTemp + 85) {
+    digitalWrite(2, HIGH);
+    digitalWrite(3, HIGH);
+    digitalWrite(4, HIGH);
+    tone(7, 3000, 100);
+    delay(10);
+    hmotor();
+    delay(100);
+  }
+  delay(100); 
+}
+
+void hmotor()
+{
+  digitalWrite(mot,HIGH);
+  delay(100);
+}
+void lmotor()
+{
+  digitalWrite(mot,LOW);
+  delay(100);
+}
+ 
